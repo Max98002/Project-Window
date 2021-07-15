@@ -1818,3 +1818,12 @@ textarea:focus {
     animation: none !important;
   }
 }
+.showB {
+  display: block;
+}
+.showF {
+  display: flex;
+}
+.hide {
+  display: none;
+}
