@@ -3,6 +3,7 @@
 const gulp = require("gulp");
 const webpack = require("webpack-stream");
 const browsersync = require("browser-sync");
+const cssmin = require('gulp-cssmin');
 
 const dist = "./dist/";
 // const dist = "/Applications/MAMP/htdocs/test";
@@ -51,6 +52,13 @@ gulp.task("copy-assets", () => {
     .on("end", browsersync.reload);
 });
 
+gulp.task("cssmin", () => {
+  return gulp.src("./src/assets/css/**/*.css")
+    .pipe(cssmin())
+    .pipe(gulp.dest(dist + "/assets/css"))
+    .on("end", browsersync.reload);
+})
+
 gulp.task("watch", () => {
   browsersync.init({
     server: "./dist/",
@@ -61,9 +69,10 @@ gulp.task("watch", () => {
   gulp.watch("./src/index.html", gulp.parallel("copy-html"));
   gulp.watch("./src/assets/**/*.*", gulp.parallel("copy-assets"));
   gulp.watch("./src/js/**/*.js", gulp.parallel("build-js"));
+  gulp.watch("./src/assets/css/**/*.css", gulp.parallel('cssmin'));
 });
 
-gulp.task("build", gulp.parallel("copy-html", "copy-assets", "build-js"));
+gulp.task("build", gulp.parallel("copy-html", "copy-assets", "build-js", "cssmin"));
 
 gulp.task("build-prod-js", () => {
   return gulp.src("./src/js/main.js")
