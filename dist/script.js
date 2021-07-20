@@ -18077,11 +18077,13 @@ var showBigImg = function showBigImg() {
     if (target && target.classList.contains('preview')) {
       var path = target.parentNode.getAttribute('href');
       imgPopup.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
       bigImg.setAttribute('src', path);
     }
 
     if (target && target == imgPopup) {
       imgPopup.style.display = 'none';
+      document.body.style.overflow = '';
     }
   });
 };
