@@ -4,12 +4,16 @@ const gulp = require("gulp");
 const webpack = require("webpack-stream");
 const browsersync = require("browser-sync");
 const cssmin = require('gulp-cssmin');
+const htmlmin = require('gulp-htmlmin');
 
 const dist = "./dist/";
 // const dist = "/Applications/MAMP/htdocs/test";
 
 gulp.task("copy-html", () => {
   return gulp.src("./src/index.html")
+    .pipe(htmlmin({
+      collapseWhitespace: true
+    }))
     .pipe(gulp.dest(dist))
     .pipe(browsersync.stream());
 });
